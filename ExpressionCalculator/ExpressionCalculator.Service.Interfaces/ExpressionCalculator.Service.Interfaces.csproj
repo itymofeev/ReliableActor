@@ -12,4 +12,8 @@
     <PackageReference Include="Microsoft.ServiceFabric.Actors" Version="3.3.622" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ExpressionCalculator.Common\ExpressionCalculator.Common.csproj" />
+  </ItemGroup>
+
 </Project>

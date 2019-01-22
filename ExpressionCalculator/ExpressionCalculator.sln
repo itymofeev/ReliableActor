@@ -5,11 +5,13 @@ VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "ExpressionCalculator", "ExpressionCalculator\ExpressionCalculator.sfproj", "{48342B51-BC95-4F20-863F-BD9ED88F44B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionCalculator.Service", "ExpressionCalculator.Service\ExpressionCalculator.Service.csproj", "{E20030AA-0B6F-4F6E-A9C9-E763F9F2B880}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionCalculator.Service", "ExpressionCalculator.Service\ExpressionCalculator.Service.csproj", "{E20030AA-0B6F-4F6E-A9C9-E763F9F2B880}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionCalculator.Service.Interfaces", "ExpressionCalculator.Service.Interfaces\ExpressionCalculator.Service.Interfaces.csproj", "{AA893C03-C43F-4DC7-AFD2-27DC41D2F388}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionCalculator.Service.Interfaces", "ExpressionCalculator.Service.Interfaces\ExpressionCalculator.Service.Interfaces.csproj", "{AA893C03-C43F-4DC7-AFD2-27DC41D2F388}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionCalculator.ConsoleClient", "ExpressionCalculator.ConsoleClient\ExpressionCalculator.ConsoleClient.csproj", "{148C3E97-6FAC-4D43-A358-89F7641EB4C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionCalculator.ConsoleClient", "ExpressionCalculator.ConsoleClient\ExpressionCalculator.ConsoleClient.csproj", "{148C3E97-6FAC-4D43-A358-89F7641EB4C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionCalculator.Common", "ExpressionCalculator.Common\ExpressionCalculator.Common.csproj", "{0AFF9F25-DD65-4D8B-9303-FF032CDFA6C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,14 @@ Global
 		{148C3E97-6FAC-4D43-A358-89F7641EB4C8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{148C3E97-6FAC-4D43-A358-89F7641EB4C8}.Release|x64.ActiveCfg = Release|Any CPU
 		{148C3E97-6FAC-4D43-A358-89F7641EB4C8}.Release|x64.Build.0 = Release|Any CPU
+		{0AFF9F25-DD65-4D8B-9303-FF032CDFA6C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AFF9F25-DD65-4D8B-9303-FF032CDFA6C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AFF9F25-DD65-4D8B-9303-FF032CDFA6C1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0AFF9F25-DD65-4D8B-9303-FF032CDFA6C1}.Debug|x64.Build.0 = Debug|Any CPU
+		{0AFF9F25-DD65-4D8B-9303-FF032CDFA6C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AFF9F25-DD65-4D8B-9303-FF032CDFA6C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AFF9F25-DD65-4D8B-9303-FF032CDFA6C1}.Release|x64.ActiveCfg = Release|Any CPU
+		{0AFF9F25-DD65-4D8B-9303-FF032CDFA6C1}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

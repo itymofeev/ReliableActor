@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ExpressionCalculator.Common\ExpressionCalculator.Common.csproj" />
     <ProjectReference Include="..\ExpressionCalculator.Service.Interfaces\ExpressionCalculator.Service.Interfaces.csproj" />
   </ItemGroup>
 
