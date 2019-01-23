@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using ExpressionCalculator.Service.Interfaces;
 using Microsoft.ServiceFabric.Actors;
+using Microsoft.ServiceFabric.Actors.Client;
+using Microsoft.ServiceFabric.Actors.Generator;
 using Microsoft.ServiceFabric.Actors.Runtime;
 using Microsoft.ServiceFabric.Data.Collections;
 
@@ -11,22 +13,27 @@ using static ExpressionCalculator.Common.Constants;
 
 namespace ExpressionCalculator.Service.Actors
 {
-    public class WorkerActor : Actor, IWorkerActor, IRemindable
+    [StatePersistence(StatePersistence.Persisted)]
+    public class WorkerActor : Actor, IWorkerActor
     {
         public WorkerActor(ActorService actorService, ActorId actorId) : base(actorService, actorId) { }
 
-
-        public Task ReceiveReminderAsync(string reminderName, byte[] state, TimeSpan dueTime, TimeSpan period)
+        public async Task AddVariables(KeyValuePair<string, IEnumerable<string>> extractedVariables)
         {
-            throw new NotImplementedException();
+            var extractedVariablesMap =
+                await StateManager.GetStateAsync<IDictionary<string, IEnumerable<string>>>(EXTRACTED_VARIABLES_MAP);
+            extractedVariablesMap[extractedVariables.Key] = extractedVariables.Value;
+
+            //StateManager.AddOrUpdateStateAsync<IDictionary<string, IEnumerable<string>>>(EXTRACTED_VARIABLES_MAP, extractedVariablesMap);
         }
 
         public async Task<string> StartVariableExtraction(string expression)
         {
             var correlationId = Guid.NewGuid();
 
-            await Task.Run(() => { });
-            // lunch ProcessorActor here.
+            var processorActorEndpoint = ActorNameFormat.GetFabricServiceUri(typeof(IProcessorActor), "ExpressionCalculator");
+            var processor = ActorProxy.Create<IProcessorActor>(ActorId.CreateRandom(), processorActorEndpoint);
+            await Task.Run(() => processor.ExtractVariables(correlationId.ToString(), expression));
 
             return await Task.FromResult(correlationId.ToString());
         }

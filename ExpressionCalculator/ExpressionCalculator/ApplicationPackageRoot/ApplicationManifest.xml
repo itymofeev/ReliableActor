@@ -4,6 +4,12 @@
     <Parameter Name="ServiceActorService_PartitionCount" DefaultValue="10" />
     <Parameter Name="ServiceActorService_MinReplicaSetSize" DefaultValue="3" />
     <Parameter Name="ServiceActorService_TargetReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="ProcessorActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="ProcessorActorService_MinReplicaSetSize" DefaultValue="1" />
+    <Parameter Name="ProcessorActorService_TargetReplicaSetSize" DefaultValue="1" />
+    <Parameter Name="WorkerActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="WorkerActorService_MinReplicaSetSize" DefaultValue="1" />
+    <Parameter Name="WorkerActorService_TargetReplicaSetSize" DefaultValue="1" />
   </Parameters>
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
@@ -15,6 +21,16 @@
     <Service Name="ServiceActorService" GeneratedIdRef="f326e8e8-56f5-4bbe-aa18-ca48dc2254c5|Persisted">
       <StatefulService ServiceTypeName="ServiceActorServiceType" TargetReplicaSetSize="[ServiceActorService_TargetReplicaSetSize]" MinReplicaSetSize="[ServiceActorService_MinReplicaSetSize]">
         <UniformInt64Partition PartitionCount="[ServiceActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="ProcessorActorService" GeneratedIdRef="7d15b842-96fa-4031-b17e-73c4c80ac9c3|None">
+      <StatefulService ServiceTypeName="ProcessorActorServiceType" TargetReplicaSetSize="[ProcessorActorService_TargetReplicaSetSize]" MinReplicaSetSize="[ProcessorActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[ProcessorActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="WorkerActorService" GeneratedIdRef="82e33f91-a417-4da5-9f15-0f23560dbbb8|None">
+      <StatefulService ServiceTypeName="WorkerActorServiceType" TargetReplicaSetSize="[WorkerActorService_TargetReplicaSetSize]" MinReplicaSetSize="[WorkerActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[WorkerActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
       </StatefulService>
     </Service>
     <!-- The section below creates instances of service types, when an instance of this 

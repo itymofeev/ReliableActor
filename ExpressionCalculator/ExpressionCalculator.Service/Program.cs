@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Fabric;
 using System.Threading;
 using System.Threading.Tasks;
+using ExpressionCalculator.Service.Actors;
 using Microsoft.ServiceFabric.Actors.Runtime;
 
 namespace ExpressionCalculator.Service
@@ -21,7 +22,10 @@ namespace ExpressionCalculator.Service
                 // are automatically populated when you build this project.
                 // For more information, see https://aka.ms/servicefabricactorsplatform
 
-                ActorRuntime.RegisterActorAsync<Service>(
+                ActorRuntime.RegisterActorAsync<WorkerActor>(
+                   (context, actorType) => new ActorService(context, actorType)).GetAwaiter().GetResult();
+
+                ActorRuntime.RegisterActorAsync<ProcessorActor>(
                    (context, actorType) => new ActorService(context, actorType)).GetAwaiter().GetResult();
 
                 Thread.Sleep(Timeout.Infinite);

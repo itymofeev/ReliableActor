@@ -9,5 +9,7 @@ namespace ExpressionCalculator.Service.Interfaces
         Task<string> StartVariableExtraction(string expression);
 
         Task<IEnumerable<string>> TryGetExtractedVariables(string correlationId);
+
+        Task AddVariables(KeyValuePair<string, IEnumerable<string>> extractedVariables);
     }
 }
