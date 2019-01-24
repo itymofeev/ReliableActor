@@ -1,44 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ServiceManifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="ExpressionCalculator.ServicePkg" Version="1.0.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
   <ServiceTypes>
-    <StatefulServiceType ServiceTypeName="ServiceActorServiceType" HasPersistedState="true">
-      <Extensions>
-        <Extension Name="__GeneratedServiceType__" GeneratedId="f326e8e8-56f5-4bbe-aa18-ca48dc2254c5|Persisted">
-          <GeneratedNames xmlns="http://schemas.microsoft.com/2015/03/fabact-no-schema">
-            <DefaultService Name="ServiceActorService" />
-            <ReplicatorEndpoint Name="ServiceActorServiceReplicatorEndpoint" />
-            <ReplicatorConfigSection Name="ServiceActorServiceReplicatorConfig" />
-            <ReplicatorSecurityConfigSection Name="ServiceActorServiceReplicatorSecurityConfig" />
-            <StoreConfigSection Name="ServiceActorServiceLocalStoreConfig" />
-            <ServiceEndpointV2_1 Name="ServiceActorServiceEndpointV2_1" />
-          </GeneratedNames>
-        </Extension>
-      </Extensions>
-    </StatefulServiceType>
     <StatefulServiceType ServiceTypeName="ProcessorActorServiceType">
       <Extensions>
-        <Extension Name="__GeneratedServiceType__" GeneratedId="7d15b842-96fa-4031-b17e-73c4c80ac9c3|None">
+        <Extension Name="__GeneratedServiceType__" GeneratedId="0ee1d5ee-2f40-4b2b-8214-36f3f5048e28|None">
           <GeneratedNames xmlns="http://schemas.microsoft.com/2015/03/fabact-no-schema">
             <DefaultService Name="ProcessorActorService" />
             <ReplicatorEndpoint Name="ProcessorActorServiceReplicatorEndpoint" />
             <ReplicatorConfigSection Name="ProcessorActorServiceReplicatorConfig" />
             <ReplicatorSecurityConfigSection Name="ProcessorActorServiceReplicatorSecurityConfig" />
             <StoreConfigSection Name="ProcessorActorServiceLocalStoreConfig" />
-            <ServiceEndpointV2_1 Name="ProcessorActorServiceEndpointV2_1" />
+            <ServiceEndpointV2 Name="ProcessorActorServiceEndpointV2" />
           </GeneratedNames>
         </Extension>
       </Extensions>
     </StatefulServiceType>
     <StatefulServiceType ServiceTypeName="WorkerActorServiceType">
       <Extensions>
-        <Extension Name="__GeneratedServiceType__" GeneratedId="82e33f91-a417-4da5-9f15-0f23560dbbb8|None">
+        <Extension Name="__GeneratedServiceType__" GeneratedId="3072c465-5edb-46bb-ac6f-712233adc28b|Volatile">
           <GeneratedNames xmlns="http://schemas.microsoft.com/2015/03/fabact-no-schema">
             <DefaultService Name="WorkerActorService" />
             <ReplicatorEndpoint Name="WorkerActorServiceReplicatorEndpoint" />
             <ReplicatorConfigSection Name="WorkerActorServiceReplicatorConfig" />
             <ReplicatorSecurityConfigSection Name="WorkerActorServiceReplicatorSecurityConfig" />
             <StoreConfigSection Name="WorkerActorServiceLocalStoreConfig" />
-            <ServiceEndpointV2_1 Name="WorkerActorServiceEndpointV2_1" />
+            <ServiceEndpointV2 Name="WorkerActorServiceEndpointV2" />
           </GeneratedNames>
         </Extension>
       </Extensions>
@@ -55,11 +41,12 @@
   <Resources>
     <Endpoints>
       <Endpoint Name="ServiceActorServiceEndpointV2_1" />
-      <Endpoint Name="ServiceActorServiceReplicatorEndpoint" />
       <Endpoint Name="ProcessorActorServiceEndpointV2_1" />
       <Endpoint Name="ProcessorActorServiceReplicatorEndpoint" />
       <Endpoint Name="WorkerActorServiceEndpointV2_1" />
       <Endpoint Name="WorkerActorServiceReplicatorEndpoint" />
+      <Endpoint Name="ProcessorActorServiceEndpointV2" />
+      <Endpoint Name="WorkerActorServiceEndpointV2" />
     </Endpoints>
   </Resources>
   <!-- The content will be generated during build -->

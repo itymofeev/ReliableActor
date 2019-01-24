@@ -7,45 +7,31 @@ using Microsoft.ServiceFabric.Actors;
 using Microsoft.ServiceFabric.Actors.Client;
 using Microsoft.ServiceFabric.Actors.Generator;
 using Microsoft.ServiceFabric.Actors.Runtime;
-using Microsoft.ServiceFabric.Data.Collections;
-
-using static ExpressionCalculator.Common.Constants;
 
 namespace ExpressionCalculator.Service.Actors
 {
-    [StatePersistence(StatePersistence.Persisted)]
+    [StatePersistence(StatePersistence.Volatile)]
     public class WorkerActor : Actor, IWorkerActor
     {
         public WorkerActor(ActorService actorService, ActorId actorId) : base(actorService, actorId) { }
 
-        public async Task AddVariables(KeyValuePair<string, IEnumerable<string>> extractedVariables)
+        public async Task StartVariableExtraction(string correlationId, string expression)
         {
-            var extractedVariablesMap =
-                await StateManager.GetStateAsync<IDictionary<string, IEnumerable<string>>>(EXTRACTED_VARIABLES_MAP);
-            extractedVariablesMap[extractedVariables.Key] = extractedVariables.Value;
-
-            //StateManager.AddOrUpdateStateAsync<IDictionary<string, IEnumerable<string>>>(EXTRACTED_VARIABLES_MAP, extractedVariablesMap);
-        }
-
-        public async Task<string> StartVariableExtraction(string expression)
-        {
-            var correlationId = Guid.NewGuid();
-
             var processorActorEndpoint = ActorNameFormat.GetFabricServiceUri(typeof(IProcessorActor), "ExpressionCalculator");
             var processor = ActorProxy.Create<IProcessorActor>(ActorId.CreateRandom(), processorActorEndpoint);
-            await Task.Run(() => processor.ExtractVariables(correlationId.ToString(), expression));
+            var extractedVariables = await processor.ExtractVariables(correlationId.ToString(), expression);
 
-            return await Task.FromResult(correlationId.ToString());
+            await StateManager.AddStateAsync(extractedVariables.Key, extractedVariables.Value);
         }
 
         public async Task<IEnumerable<string>> TryGetExtractedVariables(string correlationId)
         {
-            var extractedVariablesMap =
-                await StateManager.GetStateAsync<IDictionary<string, IEnumerable<string>>>(EXTRACTED_VARIABLES_MAP);
+            var extractedVariables =
+                await StateManager.TryGetStateAsync<IEnumerable<string>>(correlationId);
 
-            return extractedVariablesMap == null || !extractedVariablesMap.ContainsKey(correlationId)
-                ? Enumerable.Empty<string>()
-                : extractedVariablesMap[correlationId];
+            return extractedVariables.HasValue
+                ? extractedVariables.Value
+                : Enumerable.Empty<string>();
         }
     }
 }

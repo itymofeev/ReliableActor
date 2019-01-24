@@ -9,20 +9,20 @@ using Microsoft.ServiceFabric.Actors.Runtime;
 
 namespace ExpressionCalculator.Service.Actors
 {
-    [StatePersistence(StatePersistence.Volatile)]
+    [StatePersistence(StatePersistence.None)]
     public class ProcessorActor : Actor, IProcessorActor
     {
         public ProcessorActor(ActorService actorService, ActorId actorId) : base(actorService, actorId)
         {
         }
 
-        public async Task ExtractVariables(string correlationId, string expression)
+        public async Task<KeyValuePair<string, IEnumerable<string>>> ExtractVariables(string correlationId, string expression)
         {
             await Task.Delay(TimeSpan.FromSeconds(30));
             var workerActorEndpoint = ActorNameFormat.GetFabricServiceUri(typeof(IWorkerActor), "ExpressionCalculator");
             var worker = ActorProxy.Create<IWorkerActor>(ActorId.CreateRandom(), workerActorEndpoint);
 
-            await worker.AddVariables(KeyValuePair.Create<string, IEnumerable<string>>(correlationId, new[] { "X1", "X2" }));
+            return KeyValuePair.Create<string, IEnumerable<string>>(correlationId, new[] { "X1", "X2" });
         }
     }
 }

@@ -1,12 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2011/01/fabric">
-  <Section Name="ServiceActorServiceReplicatorConfig">
-    <Parameter Name="ReplicatorEndpoint" Value="ServiceActorServiceReplicatorEndpoint" />
-    <Parameter Name="BatchAcknowledgementInterval" Value="0.005" />
-  </Section>
-  <Section Name="ServiceActorServiceReplicatorSecurityConfig">
-    <Parameter Name="CredentialType" Value="None" />
-  </Section>
   <Section Name="ProcessorActorServiceReplicatorConfig">
     <Parameter Name="ReplicatorEndpoint" Value="ProcessorActorServiceReplicatorEndpoint" />
     <Parameter Name="BatchAcknowledgementInterval" Value="0.005" />

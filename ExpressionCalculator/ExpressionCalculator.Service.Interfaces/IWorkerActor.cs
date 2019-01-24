@@ -1,15 +1,13 @@
-﻿using Microsoft.ServiceFabric.Actors;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.ServiceFabric.Actors;
 
 namespace ExpressionCalculator.Service.Interfaces
 {
     public interface IWorkerActor : IActor
     {
-        Task<string> StartVariableExtraction(string expression);
+        Task StartVariableExtraction(string correlationId, string expression);
 
         Task<IEnumerable<string>> TryGetExtractedVariables(string correlationId);
-
-        Task AddVariables(KeyValuePair<string, IEnumerable<string>> extractedVariables);
     }
 }
