@@ -18,8 +18,9 @@ namespace ExpressionCalculator.ConsoleClient
             Task.Run(() => worker.StartVariableExtraction(correlationId.ToString(), "xxxx"));
             var test = true;
             while(test) {
+                Console.WriteLine("Hit!");
                 var result = worker.TryGetExtractedVariables(correlationId.ToString()).Result;
-                if (result.Any())
+                if (result.ExtractedVariables.Any())
                 {
                     test = false;
                     Console.WriteLine($"Result { result }");

@@ -16,13 +16,13 @@ namespace ExpressionCalculator.Service.Actors
         {
         }
 
-        public async Task<KeyValuePair<string, IEnumerable<string>>> ExtractVariables(string correlationId, string expression)
+        public async Task<KeyValuePair<string, TestDto>> ExtractVariables(string correlationId, string expression)
         {
             await Task.Delay(TimeSpan.FromSeconds(30));
-            var workerActorEndpoint = ActorNameFormat.GetFabricServiceUri(typeof(IWorkerActor), "ExpressionCalculator");
-            var worker = ActorProxy.Create<IWorkerActor>(ActorId.CreateRandom(), workerActorEndpoint);
+            //var workerActorEndpoint = ActorNameFormat.GetFabricServiceUri(typeof(IWorkerActor), "ExpressionCalculator");
+           // var worker = ActorProxy.Create<IWorkerActor>(ActorId.CreateRandom(), workerActorEndpoint);
 
-            return KeyValuePair.Create<string, IEnumerable<string>>(correlationId, new[] { "X1", "X2" });
+            return KeyValuePair.Create<string, TestDto>(correlationId, new TestDto(new[] { "X1", "X2" }));
         }
     }
 }

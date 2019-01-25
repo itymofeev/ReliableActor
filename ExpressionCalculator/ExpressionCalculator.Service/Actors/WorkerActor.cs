@@ -24,14 +24,13 @@ namespace ExpressionCalculator.Service.Actors
             await StateManager.AddStateAsync(extractedVariables.Key, extractedVariables.Value);
         }
 
-        public async Task<IEnumerable<string>> TryGetExtractedVariables(string correlationId)
+        public async Task<TestDto> TryGetExtractedVariables(string correlationId)
         {
-            var extractedVariables =
-                await StateManager.TryGetStateAsync<IEnumerable<string>>(correlationId);
+            var hasExtractedVariables = await StateManager.ContainsStateAsync(correlationId);
 
-            return extractedVariables.HasValue
-                ? extractedVariables.Value
-                : Enumerable.Empty<string>();
+            return hasExtractedVariables
+                ? await StateManager.GetStateAsync<TestDto>(correlationId)
+                : new TestDto(Enumerable.Empty<string>());
         }
     }
 }

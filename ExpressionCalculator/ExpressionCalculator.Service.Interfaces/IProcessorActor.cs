@@ -6,6 +6,6 @@ namespace ExpressionCalculator.Service.Interfaces
 {
     public interface IProcessorActor : IActor
     {
-        Task<KeyValuePair<string, IEnumerable<string>>> ExtractVariables(string correlationId, string expression);
+        Task<KeyValuePair<string, TestDto>> ExtractVariables(string correlationId, string expression);
     }
 }
