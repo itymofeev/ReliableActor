@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionCalculator.Servic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionCalculator.ConsoleClient", "ExpressionCalculator.ConsoleClient\ExpressionCalculator.ConsoleClient.csproj", "{148C3E97-6FAC-4D43-A358-89F7641EB4C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionCalculator.Common", "ExpressionCalculator.Common\ExpressionCalculator.Common.csproj", "{0AFF9F25-DD65-4D8B-9303-FF032CDFA6C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionCalculator.Common", "ExpressionCalculator.Common\ExpressionCalculator.Common.csproj", "{0AFF9F25-DD65-4D8B-9303-FF032CDFA6C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionCalculator.Tests", "ExpressionCalculator.Tests\ExpressionCalculator.Tests.csproj", "{B2DDA42A-3873-4CCF-AF8B-09AB65473417}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,14 @@ Global
 		{0AFF9F25-DD65-4D8B-9303-FF032CDFA6C1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0AFF9F25-DD65-4D8B-9303-FF032CDFA6C1}.Release|x64.ActiveCfg = Release|Any CPU
 		{0AFF9F25-DD65-4D8B-9303-FF032CDFA6C1}.Release|x64.Build.0 = Release|Any CPU
+		{B2DDA42A-3873-4CCF-AF8B-09AB65473417}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2DDA42A-3873-4CCF-AF8B-09AB65473417}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2DDA42A-3873-4CCF-AF8B-09AB65473417}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B2DDA42A-3873-4CCF-AF8B-09AB65473417}.Debug|x64.Build.0 = Debug|Any CPU
+		{B2DDA42A-3873-4CCF-AF8B-09AB65473417}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2DDA42A-3873-4CCF-AF8B-09AB65473417}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2DDA42A-3873-4CCF-AF8B-09AB65473417}.Release|x64.ActiveCfg = Release|Any CPU
+		{B2DDA42A-3873-4CCF-AF8B-09AB65473417}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
