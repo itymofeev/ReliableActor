@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ExpressionCalculator.Service.Interfaces;
+using ExpressionCalculator.Service.Services;
 using Microsoft.ServiceFabric.Actors;
 using Microsoft.ServiceFabric.Actors.Client;
 using Microsoft.ServiceFabric.Actors.Generator;
@@ -12,17 +14,18 @@ namespace ExpressionCalculator.Service.Actors
     [StatePersistence(StatePersistence.None)]
     public class ProcessorActor : Actor, IProcessorActor
     {
-        public ProcessorActor(ActorService actorService, ActorId actorId) : base(actorService, actorId)
+        private readonly IExpressionExtractor _expressionExtractor;
+
+        public ProcessorActor(ActorService actorService, ActorId actorId, IExpressionExtractor expressionExtractor) : base(actorService, actorId)
         {
+            _expressionExtractor = expressionExtractor ?? throw new ArgumentNullException(nameof(expressionExtractor));
         }
 
         public async Task<KeyValuePair<string, TestDto>> ExtractVariables(string correlationId, string expression)
         {
             await Task.Delay(TimeSpan.FromSeconds(30));
-            //var workerActorEndpoint = ActorNameFormat.GetFabricServiceUri(typeof(IWorkerActor), "ExpressionCalculator");
-           // var worker = ActorProxy.Create<IWorkerActor>(ActorId.CreateRandom(), workerActorEndpoint);
 
-            return KeyValuePair.Create<string, TestDto>(correlationId, new TestDto(new[] { "X1", "X2" }));
+            return KeyValuePair.Create(correlationId, new TestDto(_expressionExtractor.ExtractVariables(expression)));
         }
     }
 }
