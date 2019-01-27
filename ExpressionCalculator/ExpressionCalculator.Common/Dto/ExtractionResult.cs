@@ -14,6 +14,6 @@ namespace ExpressionCalculator.Common.Dto
         public string CorrelationId { get; set; }
 
         [DataMember]
-        public ExtractedVariablesDto ExtractedVariables { get; set; }
+        public ExtractedVariables ExtractedVariables { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using ExpressionCalculator.Common.Dto;
 
 namespace ExpressionCalculator.Service.Services
 {
@@ -26,20 +27,17 @@ namespace ExpressionCalculator.Service.Services
                           .Distinct();
         }
 
-        public string SubstituteVariables(string expression, IDictionary<string, string> variableValueMap)
+        public string SubstituteVariables(string expression, SubstitutedVariables substitutedVariables)
         {
             if (string.IsNullOrWhiteSpace(expression))
             {
                 throw new ArgumentNullException(nameof(expression));
             }
-            if (variableValueMap == null)
-            {
-                throw new ArgumentNullException(nameof(variableValueMap));
-            }
+            var variablesToValuesMap = substitutedVariables?.VariablesToValuesMap ?? throw new ArgumentNullException(nameof(substitutedVariables));
             var stringConsts = Regex.Matches(expression, "(?<stringConsts>\".*?\")")
                                            .Select((x, i) => new { StringConst = x.Groups["stringConsts"].Value, Index = i });
             var stringConstReplacedExp = stringConsts.Aggregate(expression, (e, m) => Regex.Replace(e, m.StringConst, $"##StringConst_{m.Index}##"));
-            var substitutedExp = variableValueMap.Aggregate(stringConstReplacedExp, (e, vvm) => Regex.Replace(e, $@"{vvm.Key}(?!\(|\w|\d)", vvm.Value));
+            var substitutedExp = variablesToValuesMap.Aggregate(stringConstReplacedExp, (e, vvm) => Regex.Replace(e, $@"{vvm.Name}(?!\(|\w|\d)", vvm.Value));
             var reconstructedExp = stringConsts.Aggregate(substitutedExp, (e, m) => Regex.Replace(e, $"##StringConst_{m.Index}##", m.StringConst));
 
             return reconstructedExp;

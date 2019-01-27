@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using ExpressionCalculator.Common;
 using ExpressionCalculator.Common.Dto;
 using ExpressionCalculator.Service.Interfaces;
 using Microsoft.ServiceFabric.Actors;
@@ -21,20 +22,28 @@ namespace ExpressionCalculator.Service.Actors
 
         public Task StartVariableExtraction(string correlationId, string expression)
         {
-            var extractorActorEndpoint = ActorNameFormat.GetFabricServiceUri(typeof(IExtractorActor), "ExpressionCalculator");
+            var extractorActorEndpoint = ActorNameFormat.GetFabricServiceUri(typeof(IExtractorActor), Constants.APPLICATION_NAME);
             var extractorActor = ActorProxy.Create<IExtractorActor>(ActorId.CreateRandom(), extractorActorEndpoint);
             Task.Run(() => extractorActor.ExtractVariables(correlationId, expression));
 
             return Task.CompletedTask;
         }
 
-        public async Task<ExtractedVariablesDto> TryGetExtractedVariables(string correlationId)
+        public async Task<string> SubstituteVariables(string expression, SubstitutedVariables substitutedVariables)
+        {
+            var substituterActorEndpoint = ActorNameFormat.GetFabricServiceUri(typeof(ISubstituterActor), Constants.APPLICATION_NAME);
+            var substituterActor = ActorProxy.Create<ISubstituterActor>(ActorId.CreateRandom(), substituterActorEndpoint);
+
+            return await substituterActor.SubstituteVariables(expression, substitutedVariables);
+        }
+
+        public async Task<ExtractedVariables> TryGetExtractedVariables(string correlationId)
         {
             var hasExtractedVariables = await StateManager.ContainsStateAsync(correlationId);
 
             return hasExtractedVariables
-                ? await StateManager.GetStateAsync<ExtractedVariablesDto>(correlationId)
-                : new ExtractedVariablesDto { IsFinished = false, Variables = new List<string>() };
+                ? await StateManager.GetStateAsync<ExtractedVariables>(correlationId)
+                : new ExtractedVariables { IsFinished = false, Variables = new List<string>() };
         }
     }
 }

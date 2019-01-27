@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ExpressionCalculator.Common.Dto;
+using System.Collections.Generic;
 
 namespace ExpressionCalculator.Service.Services
 {
@@ -6,6 +7,6 @@ namespace ExpressionCalculator.Service.Services
     {
         IEnumerable<string> ExtractVariables(string expression);
 
-        string SubstituteVariables(string expression, IDictionary<string, string> variableValueMap);
+        string SubstituteVariables(string expression, SubstitutedVariables substitutedVariables);
     }
 }

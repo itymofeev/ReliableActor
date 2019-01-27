@@ -32,7 +32,7 @@ namespace ExpressionCalculator.Service.Actors
             var extractionResult = new ExtractionResult
             {
                 CorrelationId = correlationId,
-                ExtractedVariables = new ExtractedVariablesDto
+                ExtractedVariables = new ExtractedVariables
                 {
                     IsFinished = true,
                     Variables = new List<string>(_expressionExtractor.ExtractVariables(expression))

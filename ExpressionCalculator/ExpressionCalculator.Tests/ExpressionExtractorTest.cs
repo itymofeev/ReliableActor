@@ -1,7 +1,8 @@
 using System;
-using ExpressionCalculator.Service.Services;
 using System.Collections.Generic;
+using ExpressionCalculator.Service.Services;
 using Xunit;
+using ExpressionCalculator.Common.Dto;
 
 namespace ExpressionCalculator.Test
 {
@@ -35,41 +36,48 @@ namespace ExpressionCalculator.Test
 
         [Theory]
         [MemberData(nameof(GenerateInvalidSubstituteVariablesData))]
-        public void SubstituteVariables_InvalidArgs_SubstitutedExpression(IDictionary<string, string> variableValueMap, string expression)
+        public void SubstituteVariables_InvalidArgs_SubstitutedExpression(SubstitutedVariables substitutedVariables, string expression)
         {
-            Assert.Throws<ArgumentNullException>(() => { _expressionExtractor.SubstituteVariables(expression, variableValueMap); });
+            Assert.Throws<ArgumentNullException>(() => { _expressionExtractor.SubstituteVariables(expression, substitutedVariables); });
         }
 
         [Theory]
         [MemberData(nameof(GenerateValidSubstituteVariablesData))]
-        public void SubstituteVariables_ValidArgs_SubstitutedExpression(IDictionary<string, string> variableValueMap, string expression, string expected)
+        public void SubstituteVariables_ValidArgs_SubstitutedExpression(SubstitutedVariables substitutedVariables, string expression, string expected)
         {
-            Assert.Equal(expected, _expressionExtractor.SubstituteVariables(expression, variableValueMap));
+            Assert.Equal(expected, _expressionExtractor.SubstituteVariables(expression, substitutedVariables));
         }
 
         public static IEnumerable<object[]> GenerateValidSubstituteVariablesData() => new[]
         {
             new object[]
             {
-                new Dictionary<string, string> { ["x1"] = "34" },
+                new SubstitutedVariables(new[] { new VariableToValueEntry("x1", "34") }),
                 "func() + (\"Test\") *56 - x1",
                 "func() + (\"Test\") *56 - 34"
             },
             new object[]
             {
-                new Dictionary<string, string> { ["x1"] = "42" },
+                new SubstitutedVariables(new[] { new VariableToValueEntry("x1", "42") }),
                 "34.5 + x1() + (\"The same x1 in string\") - 42*x1",
                 "34.5 + x1() + (\"The same x1 in string\") - 42*42"
             },
             new object[]
             {
-                new Dictionary<string, string> { ["_xr"] = "test" },
+                new SubstitutedVariables(new[] { new VariableToValueEntry("_xr", "test") }),
                 "\"First string const\" + (\"Second string const\") - 45%_xr",
                 "\"First string const\" + (\"Second string const\") - 45%test"
             },
             new object[]
             {
-                new Dictionary<string, string> { ["x"] = "123", ["x1"] = "\"aaa\"", ["d"] = "3.14", ["z"] = "5", ["b"] = "42"  },
+                new SubstitutedVariables(new[]
+                {
+                    new VariableToValueEntry("x", "123"),
+                    new VariableToValueEntry("x1", "\"aaa\""),
+                    new VariableToValueEntry("d", "3.14"),
+                    new VariableToValueEntry("z", "5"),
+                    new VariableToValueEntry("b", "42")
+                }),
                 "(x + max(x1, 5)) / d – sqrt(z) + b * CalculateSalary(\"Ivanov\", -1+x) ",
                 "(123 + max(\"aaa\", 5)) / 3.14 – sqrt(5) + 42 * CalculateSalary(\"Ivanov\", -1+123) "
             }
@@ -78,9 +86,9 @@ namespace ExpressionCalculator.Test
         public static IEnumerable<object[]> GenerateInvalidSubstituteVariablesData() => new[]
         {
             new object[] { null, "45 + x" },
-            new object[] { new Dictionary<string, string> { ["x1"] = "34" }, string.Empty },
-            new object[] { new Dictionary<string, string> { ["x1"] = "34" }, null},
-            new object[] { new Dictionary<string, string> { ["x1"] = "34" }, "     " }
+            new object[] { new SubstitutedVariables(new[] { new VariableToValueEntry("x1", "34") }), string.Empty },
+            new object[] { new SubstitutedVariables(new[] { new VariableToValueEntry("x1", "34") }), null},
+            new object[] { new SubstitutedVariables(new[] { new VariableToValueEntry("x1", "34") }), "     " }
         };
     }
 }

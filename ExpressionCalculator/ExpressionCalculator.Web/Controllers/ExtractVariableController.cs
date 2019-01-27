@@ -26,16 +26,16 @@ namespace ExpressionCalculator.Web.Controllers
         }
 
         [HttpGet("{correlationId}")]
-        public async Task<ExtractedVariablesDto> Get(string correlationId)
+        public async Task<ExtractedVariables> Get(string correlationId)
         {
             var supervisorActor = MakeSupervisorActor(correlationId);
-            var extractedVariablesDto = await supervisorActor.TryGetExtractedVariables(correlationId);
-            if (extractedVariablesDto.IsFinished)
+            var extractedVariables = await supervisorActor.TryGetExtractedVariables(correlationId);
+            if (extractedVariables.IsFinished)
             {
                 await DiactivateSupervisorActor(correlationId);
             }
 
-            return extractedVariablesDto;
+            return extractedVariables;
         }
 
         private async Task DiactivateSupervisorActor(string correlationId)

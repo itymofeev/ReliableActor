@@ -4,9 +4,9 @@ using System.Runtime.Serialization;
 namespace ExpressionCalculator.Common.Dto
 {
     [DataContract]
-    public class ExtractedVariablesDto
+    public class ExtractedVariables
     {
-        public ExtractedVariablesDto()
+        public ExtractedVariables()
         {
             Variables = new List<string>();
         }
