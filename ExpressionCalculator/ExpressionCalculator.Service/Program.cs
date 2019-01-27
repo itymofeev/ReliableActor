@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Fabric;
 using System.Threading;
-using System.Threading.Tasks;
 using ExpressionCalculator.Service.Actors;
 using ExpressionCalculator.Service.Services;
 using Microsoft.ServiceFabric.Actors.Runtime;
@@ -26,7 +24,8 @@ namespace ExpressionCalculator.Service
                 ActorRuntime.RegisterActorAsync<SupervisorActor>(
                    (context, actorType) => new ActorService(context, actorType)).GetAwaiter().GetResult();
 
-                ActorRuntime.RegisterActorAsync<ExtractorActor>(RegisterProcessorActor).GetAwaiter().GetResult();
+                ActorRuntime.RegisterActorAsync<ExtractorActor>(RegisterWorkerActor).GetAwaiter().GetResult();
+                ActorRuntime.RegisterActorAsync<SubstituterActor>(RegisterWorkerActor).GetAwaiter().GetResult();
 
                 Thread.Sleep(Timeout.Infinite);
             }
@@ -37,7 +36,7 @@ namespace ExpressionCalculator.Service
             }
         }
 
-        private static ActorService RegisterProcessorActor(StatefulServiceContext context, ActorTypeInformation actorType)
+        private static ActorService RegisterWorkerActor(StatefulServiceContext context, ActorTypeInformation actorType)
         {
             return new ActorService(context, actorType, (s, i) => new ExtractorActor(s, i, new ExpressionExtractor()));
         }
