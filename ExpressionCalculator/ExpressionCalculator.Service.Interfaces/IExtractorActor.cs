@@ -3,7 +3,7 @@ using Microsoft.ServiceFabric.Actors;
 
 namespace ExpressionCalculator.Service.Interfaces
 {
-    public interface IProcessorActor : IActor
+    public interface IExtractorActor : IActor
     {
         Task ExtractVariables(string correlationId, string expression);
     }

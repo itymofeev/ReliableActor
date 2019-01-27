@@ -2,6 +2,6 @@
 {
     public class Constants
     {
-        public static string EXTRACTED_VARIABLES_MAP = "extractedVariablesMap";
+        public static string APPLICATION_NAME = "ExpressionCalculator";
     }
 }

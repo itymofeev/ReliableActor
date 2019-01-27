@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using ExpressionCalculator.Common.Dto;
 using ExpressionCalculator.Service.Interfaces;
@@ -12,9 +10,9 @@ using Microsoft.ServiceFabric.Actors.Runtime;
 namespace ExpressionCalculator.Service.Actors
 {
     [StatePersistence(StatePersistence.Volatile)]
-    public class WorkerActor : Actor, IWorkerActor
+    public class SupervisorActor : Actor, ISupervisorActor
     {
-        public WorkerActor(ActorService actorService, ActorId actorId) : base(actorService, actorId) { }
+        public SupervisorActor(ActorService actorService, ActorId actorId) : base(actorService, actorId) { }
 
         public async Task AddExtractedVrailes(ExtractionResult extractionResult)
         {
@@ -23,9 +21,9 @@ namespace ExpressionCalculator.Service.Actors
 
         public Task StartVariableExtraction(string correlationId, string expression)
         {
-            var processorActorEndpoint = ActorNameFormat.GetFabricServiceUri(typeof(IProcessorActor), "ExpressionCalculator");
-            var processor = ActorProxy.Create<IProcessorActor>(ActorId.CreateRandom(), processorActorEndpoint);
-            Task.Run(() => processor.ExtractVariables(correlationId, expression));
+            var extractorActorEndpoint = ActorNameFormat.GetFabricServiceUri(typeof(IExtractorActor), "ExpressionCalculator");
+            var extractorActor = ActorProxy.Create<IExtractorActor>(ActorId.CreateRandom(), extractorActorEndpoint);
+            Task.Run(() => extractorActor.ExtractVariables(correlationId, expression));
 
             return Task.CompletedTask;
         }

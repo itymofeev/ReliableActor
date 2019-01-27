@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using ExpressionCalculator.Common;
 using ExpressionCalculator.Common.Dto;
 using ExpressionCalculator.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.ServiceFabric.Actors;
 using Microsoft.ServiceFabric.Actors.Client;
 using Microsoft.ServiceFabric.Actors.Generator;
-using Microsoft.ServiceFabric.Actors.Runtime;
 
 namespace ExpressionCalculator.Web.Controllers
 {
@@ -19,8 +19,8 @@ namespace ExpressionCalculator.Web.Controllers
         public async Task<string> Post([FromForm]string expression)
         {
             var correlationId = Guid.NewGuid().ToString();
-            var worker = MakeWorkerActor(correlationId);
-            await worker.StartVariableExtraction(correlationId, expression);
+            var supervisorActor = MakeSupervisorActor(correlationId);
+            await supervisorActor.StartVariableExtraction(correlationId, expression);
 
             return correlationId;
         }
@@ -28,26 +28,28 @@ namespace ExpressionCalculator.Web.Controllers
         [HttpGet("{correlationId}")]
         public async Task<ExtractedVariablesDto> Get(string correlationId)
         {
-            var worker = MakeWorkerActor(correlationId);
-            var extractedVariablesDto = await worker.TryGetExtractedVariables(correlationId);
+            var supervisorActor = MakeSupervisorActor(correlationId);
+            var extractedVariablesDto = await supervisorActor.TryGetExtractedVariables(correlationId);
             if (extractedVariablesDto.IsFinished)
             {
-                var supervisorActorId = new ActorId(correlationId);
-                var actorService = ActorNameFormat.GetFabricServiceUri(typeof(IWorkerActor), "ExpressionCalculator");
-                var myActorServiceProxy = ActorServiceProxy.Create(actorService, supervisorActorId);
-                if (myActorServiceProxy != null)
-                {
-                    await myActorServiceProxy.DeleteActorAsync(supervisorActorId, CancellationToken.None);
-                }
+                await DiactivateSupervisorActor(correlationId);
             }
 
             return extractedVariablesDto;
         }
 
-        private IWorkerActor MakeWorkerActor(string correlationId)
+        private async Task DiactivateSupervisorActor(string correlationId)
         {
-            var workerActorEndpoint = ActorNameFormat.GetFabricServiceUri(typeof(IWorkerActor), "ExpressionCalculator");
-            return ActorProxy.Create<IWorkerActor>(new ActorId(correlationId), workerActorEndpoint);
+            var supervisorActorId = new ActorId(correlationId);
+            var myActorServiceProxy = ActorServiceProxy.Create(SupervisorActorEndpoint, supervisorActorId);
+            await myActorServiceProxy?.DeleteActorAsync(supervisorActorId, CancellationToken.None);
         }
+
+        private ISupervisorActor MakeSupervisorActor(string correlationId)
+        {
+            return ActorProxy.Create<ISupervisorActor>(new ActorId(correlationId), SupervisorActorEndpoint);
+        }
+
+        private Uri SupervisorActorEndpoint => ActorNameFormat.GetFabricServiceUri(typeof(ISupervisorActor), Constants.APPLICATION_NAME);
     }
 }

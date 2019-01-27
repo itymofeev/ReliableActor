@@ -4,7 +4,7 @@ using Microsoft.ServiceFabric.Actors;
 
 namespace ExpressionCalculator.Service.Interfaces
 {
-    public interface IWorkerActor : IActor
+    public interface ISupervisorActor : IActor
     {
         Task StartVariableExtraction(string correlationId, string expression);
 

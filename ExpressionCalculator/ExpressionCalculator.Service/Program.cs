@@ -23,10 +23,10 @@ namespace ExpressionCalculator.Service
                 // are automatically populated when you build this project.
                 // For more information, see https://aka.ms/servicefabricactorsplatform
 
-                ActorRuntime.RegisterActorAsync<WorkerActor>(
+                ActorRuntime.RegisterActorAsync<SupervisorActor>(
                    (context, actorType) => new ActorService(context, actorType)).GetAwaiter().GetResult();
 
-                ActorRuntime.RegisterActorAsync<ProcessorActor>(RegisterProcessorActor).GetAwaiter().GetResult();
+                ActorRuntime.RegisterActorAsync<ExtractorActor>(RegisterProcessorActor).GetAwaiter().GetResult();
 
                 Thread.Sleep(Timeout.Infinite);
             }
@@ -39,7 +39,7 @@ namespace ExpressionCalculator.Service
 
         private static ActorService RegisterProcessorActor(StatefulServiceContext context, ActorTypeInformation actorType)
         {
-            return new ActorService(context, actorType, (s, i) => new ProcessorActor(s, i, new ExpressionExtractor()));
+            return new ActorService(context, actorType, (s, i) => new ExtractorActor(s, i, new ExpressionExtractor()));
         }
     }
 }
