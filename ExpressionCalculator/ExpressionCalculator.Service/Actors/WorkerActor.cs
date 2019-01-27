@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ExpressionCalculator.Common.Dto;
 using ExpressionCalculator.Service.Interfaces;
 using Microsoft.ServiceFabric.Actors;
 using Microsoft.ServiceFabric.Actors.Client;
@@ -24,13 +25,13 @@ namespace ExpressionCalculator.Service.Actors
             await StateManager.AddStateAsync(extractedVariables.Key, extractedVariables.Value);
         }
 
-        public async Task<TestDto> TryGetExtractedVariables(string correlationId)
+        public async Task<ExtractedVariablesDto> TryGetExtractedVariables(string correlationId)
         {
             var hasExtractedVariables = await StateManager.ContainsStateAsync(correlationId);
 
             return hasExtractedVariables
-                ? await StateManager.GetStateAsync<TestDto>(correlationId)
-                : new TestDto(Enumerable.Empty<string>());
+                ? await StateManager.GetStateAsync<ExtractedVariablesDto>(correlationId)
+                : new ExtractedVariablesDto(false, Enumerable.Empty<string>());
         }
     }
 }

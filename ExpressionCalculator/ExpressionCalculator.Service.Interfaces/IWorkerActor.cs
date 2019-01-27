@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using ExpressionCalculator.Common.Dto;
 using Microsoft.ServiceFabric.Actors;
 
 namespace ExpressionCalculator.Service.Interfaces
@@ -8,6 +8,6 @@ namespace ExpressionCalculator.Service.Interfaces
     {
         Task StartVariableExtraction(string correlationId, string expression);
 
-        Task<TestDto> TryGetExtractedVariables(string correlationId);
+        Task<ExtractedVariablesDto> TryGetExtractedVariables(string correlationId);
     }
 }

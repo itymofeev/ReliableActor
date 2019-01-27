@@ -24,7 +24,7 @@ namespace ExpressionCalculator.ConsoleClient
             while(test) {
                 Console.WriteLine("Hit!");
                 var result = worker.TryGetExtractedVariables(correlationId.ToString()).Result;
-                if (result.ExtractedVariables.Any())
+                if (result.IsFinished)
                 {
                     test = false;
                     Console.WriteLine($"Result { result }");

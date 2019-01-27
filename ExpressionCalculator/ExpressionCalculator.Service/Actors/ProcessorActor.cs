@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using ExpressionCalculator.Common.Dto;
 using ExpressionCalculator.Service.Interfaces;
 using ExpressionCalculator.Service.Services;
 using Microsoft.ServiceFabric.Actors;
@@ -21,11 +22,11 @@ namespace ExpressionCalculator.Service.Actors
             _expressionExtractor = expressionExtractor ?? throw new ArgumentNullException(nameof(expressionExtractor));
         }
 
-        public async Task<KeyValuePair<string, TestDto>> ExtractVariables(string correlationId, string expression)
+        public async Task<KeyValuePair<string, ExtractedVariablesDto>> ExtractVariables(string correlationId, string expression)
         {
             await Task.Delay(TimeSpan.FromSeconds(30));
 
-            return KeyValuePair.Create(correlationId, new TestDto(_expressionExtractor.ExtractVariables(expression)));
+            return KeyValuePair.Create(correlationId, new ExtractedVariablesDto(true, _expressionExtractor.ExtractVariables(expression)));
         }
     }
 }
