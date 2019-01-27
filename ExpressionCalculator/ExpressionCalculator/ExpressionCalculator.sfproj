@@ -33,6 +33,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ExpressionCalculator.Service\ExpressionCalculator.Service.csproj" />
+    <ProjectReference Include="..\ExpressionCalculator.Web\ExpressionCalculator.Web.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
   <PropertyGroup>
