@@ -9,13 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionCalculator.Servic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionCalculator.Service.Interfaces", "ExpressionCalculator.Service.Interfaces\ExpressionCalculator.Service.Interfaces.csproj", "{AA893C03-C43F-4DC7-AFD2-27DC41D2F388}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionCalculator.ConsoleClient", "ExpressionCalculator.ConsoleClient\ExpressionCalculator.ConsoleClient.csproj", "{148C3E97-6FAC-4D43-A358-89F7641EB4C8}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionCalculator.Common", "ExpressionCalculator.Common\ExpressionCalculator.Common.csproj", "{0AFF9F25-DD65-4D8B-9303-FF032CDFA6C1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionCalculator.Tests", "ExpressionCalculator.Tests\ExpressionCalculator.Tests.csproj", "{B2DDA42A-3873-4CCF-AF8B-09AB65473417}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionCalculator.Web", "ExpressionCalculator.Web\ExpressionCalculator.Web.csproj", "{96E84F3E-6835-46B4-964F-6EA052227300}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionCalculator.Web", "ExpressionCalculator.Web\ExpressionCalculator.Web.csproj", "{96E84F3E-6835-46B4-964F-6EA052227300}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,14 +47,6 @@ Global
 		{AA893C03-C43F-4DC7-AFD2-27DC41D2F388}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AA893C03-C43F-4DC7-AFD2-27DC41D2F388}.Release|x64.ActiveCfg = Release|Any CPU
 		{AA893C03-C43F-4DC7-AFD2-27DC41D2F388}.Release|x64.Build.0 = Release|Any CPU
-		{148C3E97-6FAC-4D43-A358-89F7641EB4C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{148C3E97-6FAC-4D43-A358-89F7641EB4C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{148C3E97-6FAC-4D43-A358-89F7641EB4C8}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{148C3E97-6FAC-4D43-A358-89F7641EB4C8}.Debug|x64.Build.0 = Debug|Any CPU
-		{148C3E97-6FAC-4D43-A358-89F7641EB4C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{148C3E97-6FAC-4D43-A358-89F7641EB4C8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{148C3E97-6FAC-4D43-A358-89F7641EB4C8}.Release|x64.ActiveCfg = Release|Any CPU
-		{148C3E97-6FAC-4D43-A358-89F7641EB4C8}.Release|x64.Build.0 = Release|Any CPU
 		{0AFF9F25-DD65-4D8B-9303-FF032CDFA6C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0AFF9F25-DD65-4D8B-9303-FF032CDFA6C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AFF9F25-DD65-4D8B-9303-FF032CDFA6C1}.Debug|x64.ActiveCfg = Debug|Any CPU
