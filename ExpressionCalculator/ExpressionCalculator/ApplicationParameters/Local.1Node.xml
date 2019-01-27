@@ -3,11 +3,11 @@
   <Parameters>
     <Parameter Name="ExpressionCalculator.Web_ASPNETCORE_ENVIRONMENT" Value="Development" />
     <Parameter Name="ExpressionCalculator.Web_InstanceCount" Value="1" />
-    <Parameter Name="ProcessorActorService_PartitionCount" Value="1" />
-    <Parameter Name="ProcessorActorService_TargetReplicaSetSize" Value="1" />
-    <Parameter Name="ProcessorActorService_MinReplicaSetSize" Value="1" />
-    <Parameter Name="WorkerActorService_PartitionCount" Value="1" />
-    <Parameter Name="WorkerActorService_TargetReplicaSetSize" Value="1" />
-    <Parameter Name="WorkerActorService_MinReplicaSetSize" Value="1" />
+    <Parameter Name="ExtractorActorService_PartitionCount" Value="1" />
+    <Parameter Name="ExtractorActorService_TargetReplicaSetSize" Value="1" />
+    <Parameter Name="ExtractorActorService_MinReplicaSetSize" Value="1" />
+    <Parameter Name="SupervisorActorService_PartitionCount" Value="1" />
+    <Parameter Name="SupervisorActorService_TargetReplicaSetSize" Value="1" />
+    <Parameter Name="SupervisorActorService_MinReplicaSetSize" Value="1" />
   </Parameters>
 </Application>

@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2011/01/fabric">
-  <Section Name="ProcessorActorServiceReplicatorConfig">
-    <Parameter Name="ReplicatorEndpoint" Value="ProcessorActorServiceReplicatorEndpoint" />
+  <Section Name="ExtractorActorServiceReplicatorConfig">
+    <Parameter Name="ReplicatorEndpoint" Value="ExtractorActorServiceReplicatorEndpoint" />
     <Parameter Name="BatchAcknowledgementInterval" Value="0.005" />
   </Section>
-  <Section Name="ProcessorActorServiceReplicatorSecurityConfig">
+  <Section Name="ExtractorActorServiceReplicatorSecurityConfig">
     <Parameter Name="CredentialType" Value="None" />
   </Section>
-  <Section Name="WorkerActorServiceReplicatorConfig">
-    <Parameter Name="ReplicatorEndpoint" Value="WorkerActorServiceReplicatorEndpoint" />
+  <Section Name="SupervisorActorServiceReplicatorConfig">
+    <Parameter Name="ReplicatorEndpoint" Value="SupervisorActorServiceReplicatorEndpoint" />
     <Parameter Name="BatchAcknowledgementInterval" Value="0.005" />
   </Section>
-  <Section Name="WorkerActorServiceReplicatorSecurityConfig">
+  <Section Name="SupervisorActorServiceReplicatorSecurityConfig">
     <Parameter Name="CredentialType" Value="None" />
   </Section>
   <!-- The content will be generated during build -->

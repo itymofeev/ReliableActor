@@ -3,12 +3,12 @@
   <Parameters>
     <Parameter Name="ExpressionCalculator.Web_ASPNETCORE_ENVIRONMENT" DefaultValue="" />
     <Parameter Name="ExpressionCalculator.Web_InstanceCount" DefaultValue="-1" />
-    <Parameter Name="ProcessorActorService_PartitionCount" DefaultValue="10" />
-    <Parameter Name="ProcessorActorService_MinReplicaSetSize" DefaultValue="1" />
-    <Parameter Name="ProcessorActorService_TargetReplicaSetSize" DefaultValue="1" />
-    <Parameter Name="WorkerActorService_PartitionCount" DefaultValue="10" />
-    <Parameter Name="WorkerActorService_MinReplicaSetSize" DefaultValue="3" />
-    <Parameter Name="WorkerActorService_TargetReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="ExtractorActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="ExtractorActorService_MinReplicaSetSize" DefaultValue="1" />
+    <Parameter Name="ExtractorActorService_TargetReplicaSetSize" DefaultValue="1" />
+    <Parameter Name="SupervisorActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="SupervisorActorService_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="SupervisorActorService_TargetReplicaSetSize" DefaultValue="3" />
   </Parameters>
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
@@ -29,14 +29,14 @@
         <SingletonPartition />
       </StatelessService>
     </Service>
-    <Service Name="ProcessorActorService" GeneratedIdRef="0ee1d5ee-2f40-4b2b-8214-36f3f5048e28|None">
-      <StatefulService ServiceTypeName="ProcessorActorServiceType" TargetReplicaSetSize="[ProcessorActorService_TargetReplicaSetSize]" MinReplicaSetSize="[ProcessorActorService_MinReplicaSetSize]">
-        <UniformInt64Partition PartitionCount="[ProcessorActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+    <Service Name="ExtractorActorService" GeneratedIdRef="1953d41f-397a-462f-bcf6-855f554e50ca|None">
+      <StatefulService ServiceTypeName="ExtractorActorServiceType" TargetReplicaSetSize="[ExtractorActorService_TargetReplicaSetSize]" MinReplicaSetSize="[ExtractorActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[ExtractorActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
       </StatefulService>
     </Service>
-    <Service Name="WorkerActorService" GeneratedIdRef="c4617476-9649-48a7-a309-04a7b6680acd|Volatile">
-      <StatefulService ServiceTypeName="WorkerActorServiceType" TargetReplicaSetSize="[WorkerActorService_TargetReplicaSetSize]" MinReplicaSetSize="[WorkerActorService_MinReplicaSetSize]">
-        <UniformInt64Partition PartitionCount="[WorkerActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+    <Service Name="SupervisorActorService" GeneratedIdRef="89e4a1a7-f6bd-4fe5-ac75-a1b8fe66d9f7|Volatile">
+      <StatefulService ServiceTypeName="SupervisorActorServiceType" TargetReplicaSetSize="[SupervisorActorService_TargetReplicaSetSize]" MinReplicaSetSize="[SupervisorActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[SupervisorActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
       </StatefulService>
     </Service>
     <!-- The section below creates instances of service types, when an instance of this 
