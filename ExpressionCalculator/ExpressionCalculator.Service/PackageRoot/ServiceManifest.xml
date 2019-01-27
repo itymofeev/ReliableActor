@@ -17,7 +17,7 @@
     </StatefulServiceType>
     <StatefulServiceType ServiceTypeName="WorkerActorServiceType">
       <Extensions>
-        <Extension Name="__GeneratedServiceType__" GeneratedId="3072c465-5edb-46bb-ac6f-712233adc28b|Volatile">
+        <Extension Name="__GeneratedServiceType__" GeneratedId="c4617476-9649-48a7-a309-04a7b6680acd|Volatile">
           <GeneratedNames xmlns="http://schemas.microsoft.com/2015/03/fabact-no-schema">
             <DefaultService Name="WorkerActorService" />
             <ReplicatorEndpoint Name="WorkerActorServiceReplicatorEndpoint" />

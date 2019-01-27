@@ -8,6 +8,8 @@ namespace ExpressionCalculator.Service.Interfaces
     {
         Task StartVariableExtraction(string correlationId, string expression);
 
+        Task AddExtractedVrailes(ExtractionResult extractionResult);
+
         Task<ExtractedVariablesDto> TryGetExtractedVariables(string correlationId);
     }
 }

@@ -16,13 +16,18 @@ namespace ExpressionCalculator.Service.Actors
     {
         public WorkerActor(ActorService actorService, ActorId actorId) : base(actorService, actorId) { }
 
-        public async Task StartVariableExtraction(string correlationId, string expression)
+        public async Task AddExtractedVrailes(ExtractionResult extractionResult)
+        {
+            await StateManager.AddStateAsync(extractionResult.CorrelationId, extractionResult.ExtractedVariables);
+        }
+
+        public Task StartVariableExtraction(string correlationId, string expression)
         {
             var processorActorEndpoint = ActorNameFormat.GetFabricServiceUri(typeof(IProcessorActor), "ExpressionCalculator");
             var processor = ActorProxy.Create<IProcessorActor>(ActorId.CreateRandom(), processorActorEndpoint);
-            var extractedVariables = await processor.ExtractVariables(correlationId.ToString(), expression);
+            Task.Run(() => processor.ExtractVariables(correlationId, expression));
 
-            await StateManager.AddStateAsync(extractedVariables.Key, extractedVariables.Value);
+            return Task.CompletedTask;
         }
 
         public async Task<ExtractedVariablesDto> TryGetExtractedVariables(string correlationId)
@@ -31,7 +36,7 @@ namespace ExpressionCalculator.Service.Actors
 
             return hasExtractedVariables
                 ? await StateManager.GetStateAsync<ExtractedVariablesDto>(correlationId)
-                : new ExtractedVariablesDto(false, Enumerable.Empty<string>());
+                : new ExtractedVariablesDto { IsFinished = false, Variables = new List<string>() };
         }
     }
 }

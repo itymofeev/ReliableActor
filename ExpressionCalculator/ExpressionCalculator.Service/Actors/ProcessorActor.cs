@@ -22,11 +22,23 @@ namespace ExpressionCalculator.Service.Actors
             _expressionExtractor = expressionExtractor ?? throw new ArgumentNullException(nameof(expressionExtractor));
         }
 
-        public async Task<KeyValuePair<string, ExtractedVariablesDto>> ExtractVariables(string correlationId, string expression)
+        public async Task ExtractVariables(string correlationId, string expression)
         {
             await Task.Delay(TimeSpan.FromSeconds(30));
 
-            return KeyValuePair.Create(correlationId, new ExtractedVariablesDto(true, _expressionExtractor.ExtractVariables(expression)));
+            var workerActorEndpoint = ActorNameFormat.GetFabricServiceUri(typeof(IWorkerActor), "ExpressionCalculator");
+            var worker = ActorProxy.Create<IWorkerActor>(new ActorId(correlationId), workerActorEndpoint);
+            var extractionResult = new ExtractionResult
+            {
+                CorrelationId = correlationId,
+                ExtractedVariables = new ExtractedVariablesDto
+                {
+                    IsFinished = true,
+                    Variables = new List<string>(_expressionExtractor.ExtractVariables(expression))
+                }
+            };
+
+            await worker.AddExtractedVrailes(extractionResult);
         }
     }
 }

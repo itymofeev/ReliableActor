@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace ExpressionCalculator.Common.Dto
 {
-    [Serializable]
+    [DataContract]
     public class ExtractedVariablesDto
     {
-        public ExtractedVariablesDto(bool isFinished, IEnumerable<string> variables)
+        public ExtractedVariablesDto()
         {
-            Variables = variables ?? throw new ArgumentNullException(nameof(variables));
-            IsFinished = isFinished;
+            Variables = new List<string>();
         }
 
-        public bool IsFinished { get; private set; }
+        [DataMember]
+        public bool IsFinished { get; set; }
 
-        public IEnumerable<string> Variables { get; private set; }
+        [DataMember]
+        public IList<string> Variables { get; set; }
     }
 }

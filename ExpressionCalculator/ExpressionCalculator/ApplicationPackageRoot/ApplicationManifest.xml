@@ -34,7 +34,7 @@
         <UniformInt64Partition PartitionCount="[ProcessorActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
       </StatefulService>
     </Service>
-    <Service Name="WorkerActorService" GeneratedIdRef="3072c465-5edb-46bb-ac6f-712233adc28b|Volatile">
+    <Service Name="WorkerActorService" GeneratedIdRef="c4617476-9649-48a7-a309-04a7b6680acd|Volatile">
       <StatefulService ServiceTypeName="WorkerActorServiceType" TargetReplicaSetSize="[WorkerActorService_TargetReplicaSetSize]" MinReplicaSetSize="[WorkerActorService_MinReplicaSetSize]">
         <UniformInt64Partition PartitionCount="[WorkerActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
       </StatefulService>
