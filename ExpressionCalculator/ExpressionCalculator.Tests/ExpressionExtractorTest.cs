@@ -4,11 +4,11 @@ using ExpressionCalculator.Service.Services;
 using Xunit;
 using ExpressionCalculator.Common.Dto;
 
-namespace ExpressionCalculator.Test
+namespace ExpressionCalculator.Tests
 {
     public class ExpressionExtractorTest
     {
-        private IExpressionExtractor _expressionExtractor = new ExpressionExtractor();
+        private readonly IExpressionExtractor _expressionExtractor = new ExpressionExtractor();
 
         [Theory]
         [InlineData("\"Only constans\"+ 45.1*8", new string[0])]

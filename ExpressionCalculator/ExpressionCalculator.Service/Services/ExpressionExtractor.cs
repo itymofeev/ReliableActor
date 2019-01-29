@@ -35,7 +35,8 @@ namespace ExpressionCalculator.Service.Services
             }
             var variablesToValuesMap = substitutedVariables?.VariablesToValuesMap ?? throw new ArgumentNullException(nameof(substitutedVariables));
             var stringConsts = Regex.Matches(expression, "(?<stringConsts>\".*?\")")
-                                           .Select((x, i) => new { StringConst = x.Groups["stringConsts"].Value, Index = i });
+                                    .Select((x, i) => new { StringConst = x.Groups["stringConsts"].Value, Index = i })
+                                    .ToArray();
             var stringConstReplacedExp = stringConsts.Aggregate(expression, (e, m) => Regex.Replace(e, m.StringConst, $"##StringConst_{m.Index}##"));
             var substitutedExp = variablesToValuesMap.Aggregate(stringConstReplacedExp, (e, vvm) => Regex.Replace(e, $@"{vvm.Name}(?!\(|\w|\d)", vvm.Value));
             var reconstructedExp = stringConsts.Aggregate(substitutedExp, (e, m) => Regex.Replace(e, $"##StringConst_{m.Index}##", m.StringConst));
