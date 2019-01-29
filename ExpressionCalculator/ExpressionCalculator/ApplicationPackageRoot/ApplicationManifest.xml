@@ -9,6 +9,9 @@
     <Parameter Name="SupervisorActorService_PartitionCount" DefaultValue="10" />
     <Parameter Name="SupervisorActorService_MinReplicaSetSize" DefaultValue="3" />
     <Parameter Name="SupervisorActorService_TargetReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="SubstituterActorService_PartitionCount" DefaultValue="10" />
+    <Parameter Name="SubstituterActorService_MinReplicaSetSize" DefaultValue="1" />
+    <Parameter Name="SubstituterActorService_TargetReplicaSetSize" DefaultValue="1" />
   </Parameters>
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
@@ -37,6 +40,11 @@
     <Service Name="SupervisorActorService" GeneratedIdRef="89e4a1a7-f6bd-4fe5-ac75-a1b8fe66d9f7|Volatile">
       <StatefulService ServiceTypeName="SupervisorActorServiceType" TargetReplicaSetSize="[SupervisorActorService_TargetReplicaSetSize]" MinReplicaSetSize="[SupervisorActorService_MinReplicaSetSize]">
         <UniformInt64Partition PartitionCount="[SupervisorActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
+    </Service>
+    <Service Name="SubstituterActorService" GeneratedIdRef="3eb9f04f-749c-4426-ac95-c9b2a6a45eb3|None">
+      <StatefulService ServiceTypeName="SubstituterActorServiceType" TargetReplicaSetSize="[SubstituterActorService_TargetReplicaSetSize]" MinReplicaSetSize="[SubstituterActorService_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[SubstituterActorService_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
       </StatefulService>
     </Service>
     <!-- The section below creates instances of service types, when an instance of this 

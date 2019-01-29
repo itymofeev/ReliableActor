@@ -14,5 +14,12 @@
   <Section Name="SupervisorActorServiceReplicatorSecurityConfig">
     <Parameter Name="CredentialType" Value="None" />
   </Section>
+  <Section Name="SubstituterActorServiceReplicatorConfig">
+    <Parameter Name="ReplicatorEndpoint" Value="SubstituterActorServiceReplicatorEndpoint" />
+    <Parameter Name="BatchAcknowledgementInterval" Value="0.005" />
+  </Section>
+  <Section Name="SubstituterActorServiceReplicatorSecurityConfig">
+    <Parameter Name="CredentialType" Value="None" />
+  </Section>
   <!-- The content will be generated during build -->
 </Settings>
