@@ -1,17 +1,20 @@
-﻿using System;
+﻿using System.Runtime.Serialization;
 
 namespace ExpressionCalculator.Common.Dto
 {
+    [DataContract]
     public class VariableToValueEntry
     {
-        public VariableToValueEntry(string name, string value)
+        public VariableToValueEntry()
         {
-            Name = !string.IsNullOrWhiteSpace(name) ? name : throw new ArgumentNullException(nameof(name));
-            Value = !string.IsNullOrWhiteSpace(value) ? value : throw new ArgumentNullException(nameof(value));
+            Name = string.Empty;
+            Value = string.Empty;
         }
 
-        public string Name { get; private set; }
+        [DataMember]
+        public string Name { get; set; }
 
-        public string Value { get; private set; }
+        [DataMember]
+        public string Value { get; set; }
     }
 }

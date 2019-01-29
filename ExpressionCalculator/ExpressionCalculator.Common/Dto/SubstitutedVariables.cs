@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace ExpressionCalculator.Common.Dto
 {
+    [DataContract]
     public class SubstitutedVariables
     {
-        public SubstitutedVariables(IEnumerable<VariableToValueEntry> variablesToValuesMap)
+        public SubstitutedVariables()
         {
-            VariablesToValuesMap = variablesToValuesMap ?? throw new ArgumentNullException(nameof(variablesToValuesMap));
+            VariablesToValuesMap = new List<VariableToValueEntry>();
         }
 
-        public IEnumerable<VariableToValueEntry> VariablesToValuesMap { get; private set; }
+        [DataMember]
+        public IList<VariableToValueEntry> VariablesToValuesMap { get; set; }
     }
 }
