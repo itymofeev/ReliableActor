@@ -31,7 +31,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\services\api.service.ts" />
+    <None Remove="ClientApp\src\app\substitution-result\substitution-result.component.ts" />
+    <None Remove="ClientApp\src\app\variable-editor\variable-editor.component.ts" />
+    <None Remove="ClientApp\src\app\view-models\extracted-variables.ts" />
+    <None Remove="ClientApp\src\app\view-models\substituted-variables.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ExpressionCalculator.Service.Interfaces\ExpressionCalculator.Service.Interfaces.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\services\api.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\substitution-result\substitution-result.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\variable-editor\variable-editor.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\view-models\extracted-variables.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\view-models\substituted-variables.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

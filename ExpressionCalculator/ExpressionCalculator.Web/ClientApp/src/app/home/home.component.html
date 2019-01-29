@@ -1,6 +1,6 @@
 <div>
   <label for="expression-input">
-    Enter an expresion:
+    Enter an expression:
   </label>
   <input id="expression-input" class="form-control" [(ngModel)]="expression" required placeholder="expression" />
   <div *ngIf="!isValid" class="alert alert-danger">
@@ -8,5 +8,5 @@
   </div>
 </div>
 <div>
-  <button (click)="extractVariables()">Extract vraibles</button>
+  <button (click)="extractVariables()">Extract variables</button> <span *ngIf="extractionInProgress">Processing...</span>
 </div>

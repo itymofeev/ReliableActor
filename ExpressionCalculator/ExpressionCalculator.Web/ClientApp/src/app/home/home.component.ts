@@ -1,25 +1,22 @@
 import { Component, Inject } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/interval';
-import { timer } from 'rxjs/observable/timer';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ApiService } from "../services/api.service";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
-  public expression: string;
-  public isValid: boolean;
-  public correlationId: string;
+  public expression: string = '';
+  public isValid: boolean = true;
+  public extractionInProgress: boolean = false;
 
-  private http: HttpClient;
+  private apiService: ApiService;
   private baseUrl: string;
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    this.http = http;
+  constructor(apiService: ApiService, @Inject('BASE_URL') baseUrl: string) {
+    this.apiService = apiService;
     this.baseUrl = baseUrl;
-    this.isValid = true;
   }
 
   public extractVariables() {
@@ -27,25 +24,26 @@ export class HomeComponent {
     if (!this.isValid) {
       return;
     }
-    this.startVariableExtraction().subscribe(this.tryGetExtractedVariables, this.handleError);
+    this.extractionInProgress = true;
+    var res = this.apiService.startVariableExtraction(this.expression, 'http://localhost:8663');
+    res.then(x => {
+      this.extractionInProgress = false;
+      if (!x.variables.length) {
+        console.log('Empty result');
+      }
+    }).catch(() => {
+      this.extractionInProgress = false;
+    });
   }
 
-  private startVariableExtraction() {
-    return this.http.post<string>('http://localhost:8663/api/extractvariable', this.expression);
+  private onProcessingFinish(result: ViewModels.IExtractedVariables) {
+    this.extractionInProgress = false;
+    if (!result.variables.length) {
+      console.log('Empty result');
+    }
   }
 
-  private tryGetExtractedVariables(correlationId: string) {
-    const delay = 1000; // every 1 sec
-    const count = 5; // process it 5 times
-
-   // Observable.interval(delay).take(count).subscribe(() => {
-   //   this.http.get<string>('http://localhost:8663/api/extractvariable' + correlationId)
-   // });
-
-    //const subscription = timer(0, 1000).subscribe(() => );
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    console.error(error); // Some error handling here
+  private onError(error: HttpErrorResponse) {
+    
   }
 }

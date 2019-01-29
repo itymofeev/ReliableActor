@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using ExpressionCalculator.Common;
 using ExpressionCalculator.Common.Dto;
 using ExpressionCalculator.Service.Interfaces;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.ServiceFabric.Actors;
 using Microsoft.ServiceFabric.Actors.Client;
@@ -16,6 +17,7 @@ namespace ExpressionCalculator.Web.Controllers
     public class ExtractVariableController : ControllerBase
     {
         [HttpPost]
+        [EnableCors("MyPolicy")]
         public async Task<string> Post([FromForm]string expression)
         {
             var correlationId = Guid.NewGuid().ToString();
@@ -26,23 +28,27 @@ namespace ExpressionCalculator.Web.Controllers
         }
 
         [HttpGet("{correlationId}")]
+        [EnableCors("MyPolicy")]
         public async Task<ExtractedVariables> Get(string correlationId)
         {
             var supervisorActor = MakeSupervisorActor(correlationId);
             var extractedVariables = await supervisorActor.TryGetExtractedVariables(correlationId);
             if (extractedVariables.IsFinished)
             {
-                await DiactivateSupervisorActor(correlationId);
+                await DeactivateSupervisorActor(correlationId);
             }
 
             return extractedVariables;
         }
 
-        private async Task DiactivateSupervisorActor(string correlationId)
+        private async Task DeactivateSupervisorActor(string correlationId)
         {
             var supervisorActorId = new ActorId(correlationId);
             var myActorServiceProxy = ActorServiceProxy.Create(SupervisorActorEndpoint, supervisorActorId);
-            await myActorServiceProxy?.DeleteActorAsync(supervisorActorId, CancellationToken.None);
+            if (myActorServiceProxy != null)
+            {
+                await myActorServiceProxy.DeleteActorAsync(supervisorActorId, CancellationToken.None);
+            }
         }
 
         private ISupervisorActor MakeSupervisorActor(string correlationId)
