@@ -15,6 +15,7 @@ export class VariableEditor {
 
     this.variables = <string[]><any>variablesStr;
     this.expression = expression;
+    this.variables.map<ViewModels.IVariableToValueEntry>(v => )
   }
 
   private variables: string[];
