@@ -36,6 +36,7 @@
     <None Remove="ClientApp\src\app\variable-editor\variable-editor.component.ts" />
     <None Remove="ClientApp\src\app\view-models\extracted-variables.ts" />
     <None Remove="ClientApp\src\app\view-models\substituted-variables.ts" />
+    <None Remove="ClientApp\src\app\view-models\substituted-vriables-request.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,6 +49,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\variable-editor\variable-editor.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\view-models\extracted-variables.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\view-models\substituted-variables.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\view-models\substituted-vriables-request.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

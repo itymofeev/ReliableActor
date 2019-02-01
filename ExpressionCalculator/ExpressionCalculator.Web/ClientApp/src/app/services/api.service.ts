@@ -51,12 +51,13 @@ export class ApiService {
   }
 
   public substituteVariable(variableToValueEntry: ViewModels.IVariableToValueEntry[], expression: string, baseUrl: string): Promise<string> {
-    const body = (new HttpParams()).set(`expression`, expression)
-                                   .set(`variableToValueEntry`, JSON.stringify(variableToValueEntry));
-    const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    const body = (({
+      variablesToValuesMap: variableToValueEntry,
+      expression: expression
+    }) as any) as ViewModels.ISubstitutedVariablesRequest;
 
     return new Promise((resolve, reject) => {
-      this.http.put(baseUrl + '/api/substitutevariable', body, { headers, responseType: 'text' })
+      this.http.put(baseUrl + '/api/substitutevariable', body, { responseType: 'text' })
                .subscribe(substituteExpression => resolve(substituteExpression), _ => reject());
     });
   }

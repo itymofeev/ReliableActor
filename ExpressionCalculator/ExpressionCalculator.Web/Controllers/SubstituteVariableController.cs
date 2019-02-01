@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using ExpressionCalculator.Common;
 using ExpressionCalculator.Common.Dto;
 using ExpressionCalculator.Service.Interfaces;
@@ -16,12 +17,12 @@ namespace ExpressionCalculator.Web.Controllers
     {
         [HttpPut]
         [EnableCors("MyPolicy")]
-        public async Task<string> Put(string expression, [FromBody]SubstitutedVariables substitutedVariables)
+        public async Task<string> Put([FromBody]SubstitutedVariablesRequest substitutedVariablesRequest)
         {
             var supervisorActorEndpoint =  ActorNameFormat.GetFabricServiceUri(typeof(ISupervisorActor), Constants.APPLICATION_NAME);
             var supervisorActor = ActorProxy.Create<ISupervisorActor>(ActorId.CreateRandom(), supervisorActorEndpoint);
 
-            return await supervisorActor.SubstituteVariables(expression, substitutedVariables);
+            return await supervisorActor.SubstituteVariables(substitutedVariablesRequest.Expression, new SubstitutedVariables { VariablesToValuesMap = substitutedVariablesRequest.VariablesToValuesMap.ToList() });
         }
     }
 }
