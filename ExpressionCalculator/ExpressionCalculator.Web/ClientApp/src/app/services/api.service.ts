@@ -20,7 +20,7 @@ export class ApiService {
     let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
 
     return new Promise((resolve, reject) => {
-      this.http.post(this.baseUrl + '/api/extractvariable', body, { headers, responseType: 'text' })
+      this.http.post(this.baseUrl + 'api/extractvariable', body, { headers, responseType: 'text' })
               .subscribe(correlationId => resolve(this.tryGetExtractedVariables(correlationId, this.http)), _ => reject());
     });
   }
@@ -38,7 +38,7 @@ export class ApiService {
           return !isFinished || currAttempt >= maxAttempts;
         })
         .subscribe(() => {
-          http.get<ViewModels.IExtractedVariables>(this.baseUrl + '/api/extractvariable/' + correlationId).subscribe(
+          http.get<ViewModels.IExtractedVariables>(this.baseUrl + 'api/extractvariable/' + correlationId).subscribe(
               result => {
                 if (!result.isFinished) {
                   return;
@@ -58,7 +58,7 @@ export class ApiService {
     }) as any) as ViewModels.ISubstitutedVariablesRequest;
 
     return new Promise((resolve, reject) => {
-      this.http.put(this.baseUrl + '/api/substitutevariable', body, { responseType: 'text' })
+      this.http.put(this.baseUrl + 'api/substitutevariable', body, { responseType: 'text' })
                .subscribe(substituteExpression => resolve(substituteExpression), _ => reject());
     });
   }
