@@ -2,6 +2,7 @@
 using ExpressionCalculator.Common;
 using ExpressionCalculator.Common.Dto;
 using ExpressionCalculator.Service.Interfaces;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.ServiceFabric.Actors;
 using Microsoft.ServiceFabric.Actors.Client;
@@ -14,6 +15,7 @@ namespace ExpressionCalculator.Web.Controllers
     public class SubstituteVariableController : ControllerBase
     {
         [HttpPut]
+        [EnableCors("MyPolicy")]
         public async Task<string> Put(string expression, [FromBody]SubstitutedVariables substitutedVariables)
         {
             var supervisorActorEndpoint =  ActorNameFormat.GetFabricServiceUri(typeof(ISupervisorActor), Constants.APPLICATION_NAME);

@@ -49,4 +49,15 @@ export class ApiService {
           _ => reject());
     });
   }
+
+  public substituteVariable(variableToValueEntry: ViewModels.IVariableToValueEntry[], expression: string, baseUrl: string): Promise<string> {
+    const body = (new HttpParams()).set(`expression`, expression)
+                                   .set(`variableToValueEntry`, JSON.stringify(variableToValueEntry));
+    const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+
+    return new Promise((resolve, reject) => {
+      this.http.put(baseUrl + '/api/substitutevariable', body, { headers, responseType: 'text' })
+               .subscribe(substituteExpression => resolve(substituteExpression), _ => reject());
+    });
+  }
 }

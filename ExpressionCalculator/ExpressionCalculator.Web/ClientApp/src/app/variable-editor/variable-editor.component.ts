@@ -1,23 +1,32 @@
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
+import { ApiService } from "../services/api.service";
 
 @Component({
   selector: 'app-variable-editor',
   templateUrl: './variable-editor.component.html'
 })
-export class VariableEditor {
-  constructor(activatedRoute: ActivatedRoute, router: Router) {
+export class VariableEditorComponent {
+  constructor(activatedRoute: ActivatedRoute, router: Router, apiService: ApiService, @Inject('BASE_URL') baseUrl: string) {
     let variablesStr = activatedRoute.snapshot.queryParamMap.get('variables');
     let expression = activatedRoute.snapshot.queryParamMap.get('expression');
-    if (variablesStr === '' || expression == '') {
+    if (variablesStr === '' || expression === '') {
       router.navigate(['/'])
     }
 
-    this.variables = <string[]><any>variablesStr;
     this.expression = expression;
-    this.variables.map<ViewModels.IVariableToValueEntry>(v => )
+    this.variables = (JSON.parse(variablesStr) as string[]).map<ViewModels.IVariableToValueEntry>(entry => ({ name: entry, value: '' }) as ViewModels.IVariableToValueEntry);
+    this.baseUrl = baseUrl;
+    this.apiService = apiService;
   }
 
-  private variables: string[];
-  private expression: string;
+  public variables: ViewModels.IVariableToValueEntry[];
+  public expression: string;
+
+  private baseUrl: string;
+  private apiService: ApiService;
+
+  public replaceVariables() {
+    this.apiService.substituteVariable(this.variables, this.expression,'http://localhost:8663').then(result => console.log(result));
+  }
 }

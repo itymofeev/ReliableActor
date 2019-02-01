@@ -1,1 +1,8 @@
-<div>Variable editor</div>
+<span>Extracted variables</span>
+<ul>
+  <li *ngFor="let entry of variables">
+    <label>{{entry.name}}</label>
+    <input [(ngModel)]="entry.value"/>
+  </li>
+</ul>
+<button (click)="replaceVariables()">Replace variables</button>

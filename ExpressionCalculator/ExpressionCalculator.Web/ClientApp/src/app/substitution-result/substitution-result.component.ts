@@ -4,6 +4,6 @@ import { Component, Inject } from '@angular/core';
   selector: 'app-substitution-result',
   templateUrl: './substitution-result.component.html'
 })
-export class SubstitutionResult {
+export class SubstitutionResultComponent {
 
 }
