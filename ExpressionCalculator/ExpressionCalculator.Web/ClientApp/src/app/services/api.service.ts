@@ -14,8 +14,8 @@ export class ApiService {
   }
 
   public startVariableExtraction(expression: string, baseUrl: string): Promise<ViewModels.IExtractedVariables> {
-    const body = new HttpParams().set(`expression`, expression);
-    const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let body = new HttpParams().set(`expression`, expression);
+    let headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
 
     return new Promise((resolve, reject) => {
       this.http.post(baseUrl + '/api/extractvariable', body, { headers, responseType: 'text' })
