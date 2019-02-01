@@ -1,3 +1,8 @@
+.expression-calculator-container {
+  margin: 100px;
+  width: 650px;
+}
+
 .ng-valid[required], .ng-valid.required {
   border-left: 5px solid #42A948; /* green */
 }

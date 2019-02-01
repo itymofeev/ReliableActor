@@ -1,21 +1,20 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { ApiService } from "../services/api.service";
 import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html'
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  constructor(apiService: ApiService, router: Router, @Inject('BASE_URL') baseUrl: string) {
+  constructor(apiService: ApiService, router: Router) {
     this.apiService = apiService;
-    this.baseUrl = baseUrl;
     this.router = router;
   }
 
   private router: Router;
   private apiService: ApiService;
-  private baseUrl: string;
 
   public expression: string = '';
   public isValid: boolean = true;
@@ -27,10 +26,10 @@ export class HomeComponent {
       return;
     }
     this.extractionInProgress = true;
-    this.apiService.startVariableExtraction(this.expression, 'http://localhost:8663').then(result => {
+    this.apiService.startVariableExtraction(this.expression).then(result => {
       this.extractionInProgress = false;
       if (!result.variables.length) {
-        console.log('Empty result');
+        this.router.navigate(['/substitution-result'], { queryParams: { substituteExpression: this.expression } });
         return;
       }
       this.router.navigate(['/variable-editor'], { queryParams: { variables: JSON.stringify(result.variables), expression: this.expression } });

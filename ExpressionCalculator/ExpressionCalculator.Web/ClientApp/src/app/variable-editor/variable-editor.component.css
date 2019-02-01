@@ -1,0 +1,12 @@
+.variable-container {
+  float: left;
+  width: 70px;
+}
+
+.variable-to-value-container {
+  width: 300px;
+}
+
+.target-expression {
+  margin-left: 7px;
+}

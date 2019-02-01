@@ -1,8 +1,12 @@
-<span>Extracted variables</span>
-<ul>
+<label>Extracted variables</label>
+<ul class="variable-to-value-container">
   <li *ngFor="let entry of variables">
-    <label>{{entry.name}}</label>
-    <input [(ngModel)]="entry.value"/>
+    <div class="variable-container"><b>{{entry.name}}:</b></div>
+    <input [(ngModel)]="entry.value" class="variable-value"/>
   </li>
 </ul>
+<div>
+  <span>Target expression:</span><i class="target-expression">"{{expression}}"</i>
+</div>
+<br />
 <button (click)="replaceVariables()">Replace variables</button>
