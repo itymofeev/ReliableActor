@@ -9,5 +9,5 @@
 </div>
 <br />
 <div>
-  <button (click)="extractVariables()">Extract variables</button> <span *ngIf="extractionInProgress">Processing...</span>
+  <button (click)="extractVariables()"  [disabled]="extractionInProgress">Extract variables</button> <span *ngIf="extractionInProgress">Processing...</span>
 </div>
